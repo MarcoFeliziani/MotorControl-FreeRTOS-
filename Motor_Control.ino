@@ -73,7 +73,7 @@ void setup() {
   // Now the task scheduler, which takes over control of scheduling individual tasks, is automatically started.
   /*Start the scheduler*/
   /*vTaskStartScheduler();*/
-
+  /*Remember to control if there are need to add interrupts inside the code*/
   // initialize all the readings to 0:
   for (int thisReading = 0; thisReading < numReadings; thisReading++) {
     readings[thisReading] = 0;
@@ -225,11 +225,11 @@ void TaskMiniServo(void *pvParameters)  // This is TaskMiniServo.
         int i = 0;
         do{
             Serial.println(*rx_dataStored);
-            int angle = *rx_dataStored;
+            int angle = *rx_dataStored;  // Insert data queue into angle variable
             servoPulse(servoPin, angle); // Function to move servo
             *rx_dataStored++;
             i++;
-        }while(i < 10);
+        }while(i < 10);                  //loop until the ten data queue are read
   }
      else{
             Serial.println("Failed to receive data from queue");
